@@ -15,6 +15,7 @@ function initiateAction(){
                 "Create Deparment",
                 "Create Role",
                 "Create Employee",
+                "Update Employee Role",
                 "Quit"
         ]
     }).then(ans => {
@@ -36,6 +37,9 @@ function initiateAction(){
                 return;
             case "Create Employee":
                 createEmployee();
+                return;
+            case "Update Employee Role":
+                updateEmployeeRole();
                 return;
             default:
                 connection.end();
@@ -69,6 +73,25 @@ function createDepartments(){
     
 }
 function createRole(){
+
+    db.selectDepartments().then(res =>{
+        const departmentOptions = res.map((department) => ({
+            value: department.id,
+            name: department.name
+        }))
+        inquirer.prompt([
+            {
+                name: "departmentChoice",
+                type: "list",
+                messege:"What would you like to do?",
+                choices:departmentOptions
+            }
+        ])
+        initiateAction(); 
+     });
+
+}
+function updateEmployeeRole(){
     
 }
 

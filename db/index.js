@@ -10,4 +10,17 @@ module.exports={
     selectEmployees(){
         return connection.query("SELECT * FROM employee");
     },
+    createRole(data){
+        return connection.query("INSERT INTO role (title, salary, department_id) VALUES (?)",data);
+    },
+    createDepartment(data){
+        return connection.query("INSERT INTO role (name) VALUES (?)",data);
+    },
+    createEmployee(data){
+        return connection.query("INSERT INTO role (first_name, last_name, role_id, manager_id) VALUES (?)",data);
+    },
+    updateRole(data){
+        "UPDATE products SET ? WHERE ?"
+        return connection.query( "UPDATE products SET ? WHERE ?",data);
+    }
 };
