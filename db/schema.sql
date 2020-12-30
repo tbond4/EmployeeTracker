@@ -1,0 +1,18 @@
+DROP DATABASE IF EXISTS employees;
+CREATE employees;
+USE employees;
+
+CREATE TABLE employee (
+id INTEGER(11) AUTO_INCREMENT NOT NULL,
+first_name VARCHAR(30),
+last_name VARCHAR(30),
+);
+CREATE TABLE role (
+id INTEGER(11) AUTO_INCREMENT NOT NULL,
+title VARCHAR(30),
+salary DECIMAL
+);
+CREATE TABLE department (
+id INTEGER(11) AUTO_INCREMENT NOT NULL,
+name VARCHAR(30)
+);
