@@ -70,7 +70,17 @@ function createEmployee(){
     
 }
 function createDepartments(){
-    
+    inquirer.prompt([
+        {
+            name:"name",
+            type:"input",
+            message:"What it the Name of this Department?"
+        },
+        
+    ]).then( data =>{
+        db.createDepartment(data);
+    });
+    initiateAction(); 
 }
 function createRole(){
 
@@ -81,19 +91,31 @@ function createRole(){
         }))
         inquirer.prompt([
             {
-                name: "departmentChoice",
+                name: "department_id",
                 type: "list",
-                messege:"What would you like to do?",
+                message:"What department is this Role in?",
                 choices:departmentOptions
+            },
+            {
+                name:"title",
+                type:"input",
+                message:"What it the Title of this Role?"
+            },
+            {
+                name:"salary",
+                type:"input",
+                message:"What it the Salary for this Role?"
             }
-        ])
-        initiateAction(); 
+        ]).then( data =>{
+            db.createRole(data);
+        });
+        
      });
-
+     initiateAction(); 
 }
 function updateEmployeeRole(){
-    
-}
+
+}  
 
 initiateAction();
 
