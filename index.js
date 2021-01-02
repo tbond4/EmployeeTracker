@@ -7,7 +7,7 @@ function initiateAction(){
     inquirer.prompt({
         name: "action",
         type: "list",
-        messege:"What would you like to do?",
+        message:"What would you like to do?",
         choices:[
                 "View Employees",
                 "View Departments",
@@ -19,7 +19,7 @@ function initiateAction(){
                 "Quit"
         ]
     }).then(ans => {
-        switch (ans) {
+        switch (ans.action) {
             case "View Employees":
                 viewEmployees();
                 return;
@@ -48,11 +48,11 @@ function initiateAction(){
     });
 }
 function viewEmployees(){
-
     db.selectEmployees().then(res =>{
        console.table(res);
        initiateAction(); 
     });
+   
 }
 function viewDepartments(){
     db.selectDepartments().then(res =>{
@@ -75,12 +75,14 @@ function createDepartments(){
             name:"name",
             type:"input",
             message:"What it the Name of this Department?"
-        },
-        
+        }  
     ]).then( data =>{
-        db.createDepartment(data);
+        db.createDepartment(data).then(( )=> {
+            console.log("Department Added!")
+        });
+        initiateAction(); 
     });
-    initiateAction(); 
+    
 }
 function createRole(){
 
@@ -108,10 +110,12 @@ function createRole(){
             }
         ]).then( data =>{
             db.createRole(data);
+            console.log("Role Added!");
+            initiateAction(); 
         });
-        
+       
      });
-     initiateAction(); 
+   
 }
 function updateEmployeeRole(){
 
