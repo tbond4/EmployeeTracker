@@ -21,6 +21,6 @@ module.exports={
     },
     updateRole(data){
       
-        return connection.query( "UPDATE employee SET ? WHERE ? ;",{role_id:data.role_id},{id:data.employee_id});
+        return connection.query( "UPDATE employee SET ? WHERE ? ;",[{role_id:data.role_id},{id:data.employee_id}]);
     }
 };
