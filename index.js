@@ -75,7 +75,7 @@ function createEmployee(){
     }))
     db.selectEmployees().then(res=>{
         const managerChoices = res.map((manager) => ({
-            name: manager.last_name,
+            name: [manager.first_name, manager.last_name],
             value: manager.id
     }))
     inquirer.prompt([{
