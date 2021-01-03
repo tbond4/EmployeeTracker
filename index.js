@@ -68,6 +68,50 @@ function viewRoles(){
 }
 function createEmployee(){
     
+    db.selectRoles().then(res=>{
+        const roleChoices = res.map((role) => ({
+            name:role.title,
+            value:role.id
+    }))
+    db.selectEmployees().then(res=>{
+        const managerChoices = res.map((manager) => ({
+            name: manager.last_name,
+            value: manager.id
+    }))
+    inquirer.prompt([{
+        name:"firstName",
+        type:"input",
+        message:"What is the new employees First Name?",
+    },
+    {
+        name:"lastName",
+        type:"input",
+        message:"What is the new employees Last Name?",
+    },
+    {
+        name:"role_id",
+        type:"list",
+        message:"Choose the Employees Role",
+        choices: roleChoices
+    },
+    {
+        name:"manager_id",
+        type:"list",
+        message:"Choose the Employees Manager",
+        choices: managerChoices
+    }
+    ]).then(data =>{
+        db.createEmployee(data).then(()=>{
+            console.log("Employee Added!")
+        });
+        initiateAction(); 
+    });
+
+});
+
+});
+
+    
 }
 function createDepartments(){
     inquirer.prompt([
@@ -88,13 +132,14 @@ function createRole(){
 
     db.selectDepartments().then(res =>{
         const departmentOptions = res.map((department) => ({
-            value: department.id,
-            name: department.name
-        }))
+            name: department.title,
+            value: department.id
+           
+        }));
         inquirer.prompt([
             {
                 name: "department_id",
-                type: "list",
+                type: "rawlist",
                 message:"What department is this Role in?",
                 choices:departmentOptions
             },
@@ -109,8 +154,10 @@ function createRole(){
                 message:"What it the Salary for this Role?"
             }
         ]).then( data =>{
-            db.createRole(data);
-            console.log("Role Added!");
+            db.createRole(data).then(()=>{
+                console.log("Role Added!")
+               
+            });
             initiateAction(); 
         });
        
@@ -118,7 +165,39 @@ function createRole(){
    
 }
 function updateEmployeeRole(){
+    db.selectRoles().then(res=>{
+        const roleChoices = res.map((role) => ({
+            name:role.title,
+            value:role.id
+    }))
+    db.selectEmployees().then(res=>{
+        const employeeChoices = res.map((employee) => ({
+            name: [employee.first_name, employee.last_name],
+            value: employee.id
+    }))
+    inquirer.prompt([
+    {
+        name:"employee_id",
+        type:"list",
+        message:"Choose the Employee you want to change the role for",
+        choices: employeeChoices
+     },
+    {
+        name:"role_id",
+        type:"list",
+        message:"Choose the new Role",
+        choices: roleChoices
+    }
+    ]).then(data =>{
+        db.updateRole(data).then(()=>{
+            console.log("Employee Updated!")
+        });
+        initiateAction(); 
+    });
 
+});
+
+});
 }  
 
 initiateAction();

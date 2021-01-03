@@ -11,16 +11,16 @@ module.exports={
         return connection.query("SELECT * FROM employee;");
     },
     createRole(data){
-        return connection.query("INSERT INTO role (title, salary, department_id) VALUES (?);", data.title, data.salary, data.department_id);
+        return connection.query("INSERT INTO role SET ?;", {title:data.title, salary:data.salary, department_id:data.department_id});
     },
     createDepartment(data){
         return connection.query("INSERT INTO department (title) VALUES (?);", data.name);
     },
     createEmployee(data){
-        return connection.query("INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?);",data.firstName, data,lastName, data.role_id, data.manager_id);
+        return connection.query("INSERT INTO employee SET ?;",{first_name:data.firstName, last_name:data.lastName, role_id: data.role_id, manager_id: data.manager_id});
     },
     updateRole(data){
-        "UPDATE products SET ? WHERE ?"
-        return connection.query( "UPDATE products SET ? WHERE ? ;",data.role, data.name);
+      
+        return connection.query( "UPDATE employee SET ? WHERE ? ;",{role_id:data.role_id},{id:data.employee_id});
     }
 };
